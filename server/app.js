@@ -24,7 +24,7 @@ async function startup() {
 
 }
 
-startup();
+
 
 async function shutdown(e) {
   let err = e;
@@ -79,18 +79,26 @@ app.use('/graphql',graphqlHTTP({
     graphiql: true
 }));
 
-app.listen(4000,()=> {
-    console.log('graphql is now listening for requests on port 4000');
+app.listen(9898,()=> {
+    console.log('graphql is now listening for requests on port 9898');
 })
 
 
 // Test Database
 async function getUser(){
-const result = await database.simpleExecute('select user, systimestamp from dual');
-      const user = result.rows[0].USER;
-      const date = result.rows[0].SYSTIMESTAMP;
 
-      console.log(`DB user: ${user}\nDate: ${date}`);
+const result = await database.simpleExecute('select M_LABEL from ACT_BAT_DBF');
+
+      for (var i = 0; i < result.rows.length; i++) {
+        var M_LABEL = result.rows[i].M_LABEL;
+        console.log(`Extractions/feeders/storedProc: ${M_LABEL}`);
+      }
 }
 
+async function main(){
+await startup();
 getUser();
+
+}
+
+main();
