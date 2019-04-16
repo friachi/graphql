@@ -1,8 +1,8 @@
 module.exports = {
   hrPool: {
-    user: "UBS_SUPPORT_MX_COPY",
-    password: "UBS_SUPPORT_MX_COPY",
-    connectString: "dell573srv.scz.murex.com/DELL573SRV",
+    user: "hr",
+    password: "oracle",
+    connectString: "127.0.0.1/orcl",
     poolMin: 10,
     poolMax: 10,
     poolIncrement: 0
