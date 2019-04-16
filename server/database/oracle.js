@@ -45,3 +45,45 @@ function simpleExecute(statement, binds = [], opts = {}) {
 }
 
 module.exports.simpleExecute = simpleExecute;
+
+async function startup() {
+
+  try {
+    console.log('Initializing database module');
+
+    await initialize();
+  } catch (err) {
+    console.error(err);
+
+    process.exit(1); // Non-zero failure code
+  }
+
+}
+
+module.exports.startup = startup;
+
+async function shutdown(e) {
+  let err = e;
+
+  console.log('Shutting down application');
+
+  try {
+    console.log('Closing database module');
+
+    await close();
+  } catch (e) {
+    console.error(e);
+
+    err = err || e;
+  }
+
+  console.log('Exiting process');
+
+  if (err) {
+    process.exit(1); // Non-zero failure code
+  } else {
+    process.exit(0);
+  }
+}
+
+module.exports.shutdown = shutdown;
